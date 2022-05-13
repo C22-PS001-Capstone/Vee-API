@@ -39,7 +39,7 @@ exports.up = (pgm) => {
     },
   });
 
-  pgm.addConstraint('activities', 'fk_activities.owner_users.uid', 'FOREIGN KEY(owner) REFERENCES users(uid) ON DELETE CASCADE');
+  pgm.addConstraint('activities', 'fk_activities.owner_users.id', 'FOREIGN KEY(owner) REFERENCES users(id) ON DELETE CASCADE');
 };
 
 exports.down = (pgm) => {
