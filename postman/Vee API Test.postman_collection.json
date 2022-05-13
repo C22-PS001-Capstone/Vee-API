@@ -1,0 +1,328 @@
+{
+	"info": {
+		"_postman_id": "6ee9d8a2-db15-47aa-8f71-2c9653339808",
+		"name": "Vee API Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Adding User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set('userId', data.userId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\": \"evan\",\r\n    \"lastname\": \"R\",\r\n    \"email\": \"evan@gmail.com\",\r\n    \"password\": \"ryan\",\r\n    \"passwordConfirm\": \"ryan\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/users",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"ryan@gmail.com\",\r\n    \"password\": \"ryan\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/authentications",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"authentications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting User by Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItU2tFYjU1YjFmRmsyc045VyIsImlhdCI6MTY1MjQ1MjA0NX0.9aKcjoRWZdY7LmtPy4Wm9TVKRSuQKytMdTHqaBsElIg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/users/user-SkEb55b1fFk2sN9W",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"user-SkEb55b1fFk2sN9W"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItU2tFYjU1YjFmRmsyc045VyIsImlhdCI6MTY1MjQ1MTY3NX0.Ggo_P9n4HF6b4p_kWavCx1ebyGveZIkIC2Qysq15b5c\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/authentications",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"authentications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItU2tFYjU1YjFmRmsyc045VyIsImlhdCI6MTY1MjQ1MTY3NX0.Ggo_P9n4HF6b4p_kWavCx1ebyGveZIkIC2Qysq15b5c\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/authentications",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"authentications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Activity",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItU2tFYjU1YjFmRmsyc045VyIsImlhdCI6MTY1MjQ1MjA0NX0.9aKcjoRWZdY7LmtPy4Wm9TVKRSuQKytMdTHqaBsElIg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"date\": 11111111,\r\n    \"lat\": 1.1331,\r\n    \"lon\": 2.32,\r\n    \"km\": 433333348,\r\n    \"price\": 13400,\r\n    \"liter\": 55.5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/activities",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"activities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting pagination activities",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItU2tFYjU1YjFmRmsyc045VyIsImlhdCI6MTY1MjQ1MjA0NX0.9aKcjoRWZdY7LmtPy4Wm9TVKRSuQKytMdTHqaBsElIg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/activities?size=1&page=2",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"activities"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "1"
+						},
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit activities",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItU2tFYjU1YjFmRmsyc045VyIsImlhdCI6MTY1MjQ1MjA0NX0.9aKcjoRWZdY7LmtPy4Wm9TVKRSuQKytMdTHqaBsElIg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"date\": 11111111,\r\n    \"lat\": 1.1331,\r\n    \"lon\": 2.32,\r\n    \"km\": 433333348,\r\n    \"price\": 13400,\r\n    \"liter\": 55555\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/activities/act-BKI2D7EeDLa8PlhX",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"activities",
+						"act-BKI2D7EeDLa8PlhX"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hapus aktivitas",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItU2tFYjU1YjFmRmsyc045VyIsImlhdCI6MTY1MjQ1MjA0NX0.9aKcjoRWZdY7LmtPy4Wm9TVKRSuQKytMdTHqaBsElIg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/activities/act-BKI2D7EeDLa8PlhX",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"activities",
+						"act-BKI2D7EeDLa8PlhX"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting Detail Activity by Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItU2tFYjU1YjFmRmsyc045VyIsImlhdCI6MTY1MjQ1MjA0NX0.9aKcjoRWZdY7LmtPy4Wm9TVKRSuQKytMdTHqaBsElIg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/activities/act-ityc8-pfS4RS6z9S",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"activities",
+						"act-ityc8-pfS4RS6z9S"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
