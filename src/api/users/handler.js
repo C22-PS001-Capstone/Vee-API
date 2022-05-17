@@ -58,12 +58,7 @@ class UsersHandler {
 
   async getUserByIdHandler(request, h) {
     try {
-      const { id } = request.params;
-      const { id: credentialId } = request.auth.credentials;
-
-      if (id !== credentialId) {
-        throw new AuthorizationError('Anda tidak berhak mengakses resource ini');
-      }
+      const { id } = request.auth.credentials;
 
       const user = await this._service.getUserById(id);
 

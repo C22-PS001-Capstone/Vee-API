@@ -10,7 +10,7 @@ const routes = (handler) => [
   },
   {
     method: 'GET',
-    path: '/users/{id}',
+    path: '/users',
     handler: handler.getUserByIdHandler,
     options: {
       auth: 'veeapp_jwt',
