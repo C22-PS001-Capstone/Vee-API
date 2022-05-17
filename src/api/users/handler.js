@@ -4,7 +4,6 @@
 /* eslint-disable no-console */
 
 const ClientError = require('../../exceptions/ClientError');
-const AuthorizationError = require('../../exceptions/AuthorizationError');
 
 class UsersHandler {
   constructor(service, validator) {
