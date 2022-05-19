@@ -2,9 +2,9 @@
 const Joi = require('joi');
 
 const ActPayloadSchema = Joi.object({
-  date: Joi.date().timestamp(),
-  lat: Joi.number().required(),
-  lon: Joi.number().required(),
+  date: Joi.date().required(),
+  lat: Joi.number(),
+  lon: Joi.number(),
   km: Joi.number().integer().required(),
   price: Joi.number().integer().required(),
   liter: Joi.number().required(),

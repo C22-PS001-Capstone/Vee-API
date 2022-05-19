@@ -33,14 +33,17 @@ class UsersHandler {
         },
       });
       response.code(201);
+      response.message('User berhasil ditambahkan');
       return response;
     } catch (error) {
       if (error instanceof ClientError) {
         const response = h.response({
           status: 'fail',
           message: error.message,
+          data: [],
         });
         response.code(error.statusCode);
+        response.message(error.message);
         return response;
       }
 
@@ -48,8 +51,10 @@ class UsersHandler {
       const response = h.response({
         status: 'error',
         message: 'Maaf, terjadi kegagalan pada server kami.',
+        data: [],
       });
       response.code(500);
+      response.message('Maaf, terjadi kegagalan pada server kami.');
       console.error(error);
       return response;
     }
@@ -61,19 +66,25 @@ class UsersHandler {
 
       const user = await this._service.getUserById(id);
 
-      return {
+      const response = h.response({
         status: 'success',
+        message: 'Berhasil mendapatkan detail user',
         data: {
           user,
         },
-      };
+      });
+      response.code(200);
+      response.message('Berhasil mendapatkan detail user');
+      return response;
     } catch (error) {
       if (error instanceof ClientError) {
         const response = h.response({
           status: 'fail',
           message: error.message,
+          data: [],
         });
         response.code(error.statusCode);
+        response.message(error.message);
         return response;
       }
 
@@ -81,8 +92,10 @@ class UsersHandler {
       const response = h.response({
         status: 'error',
         message: 'Maaf, terjadi kegagalan pada server kami.',
+        data: [],
       });
       response.code(500);
+      response.message('Maaf, terjadi kegagalan pada server kami.');
       console.error(error);
       return response;
     }

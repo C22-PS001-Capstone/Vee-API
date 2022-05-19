@@ -10,16 +10,16 @@ exports.up = (pgm) => {
       primaryKey: true,
     },
     date: {
-      type: 'timestamp',
+      type: 'date',
       notNull: true,
     },
     lat: {
       type: 'float8',
-      notNull: true,
+      notNull: false,
     },
     lon: {
       type: 'float8',
-      notNull: true,
+      notNull: false,
     },
     km: {
       type: 'integer',

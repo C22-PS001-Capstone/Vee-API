@@ -35,17 +35,21 @@ class AuthenticationsHandler {
         data: {
           accessToken,
           refreshToken,
+          maxTokenAgeSec: process.env.ACCESS_TOKEN_AGE,
         },
       });
       response.code(201);
+      response.message('Authentication berhasil ditambahkan');
       return response;
     } catch (error) {
       if (error instanceof ClientError) {
         const response = h.response({
           status: 'fail',
           message: error.message,
+          data: [],
         });
         response.code(error.statusCode);
+        response.message(error.message);
         return response;
       }
 
@@ -53,8 +57,10 @@ class AuthenticationsHandler {
       const response = h.response({
         status: 'error',
         message: 'Maaf, terjadi kegagalan pada server kami.',
+        data: [],
       });
       response.code(500);
+      response.message('Maaf, terjadi kegagalan pada server kami.');
       console.error(error);
       return response;
     }
@@ -69,20 +75,27 @@ class AuthenticationsHandler {
       const { id } = this._tokenManager.verifyRefreshToken(refreshToken);
 
       const accessToken = this._tokenManager.generateAccessToken({ id });
-      return {
+
+      const response = h.response({
         status: 'success',
         message: 'Access Token berhasil diperbarui',
         data: {
           accessToken,
+          maxTokenAgeSec: process.env.ACCESS_TOKEN_AGE,
         },
-      };
+      });
+      response.code(200);
+      response.message('Access Token berhasil diperbarui');
+      return response;
     } catch (error) {
       if (error instanceof ClientError) {
         const response = h.response({
           status: 'fail',
           message: error.message,
+          data: [],
         });
         response.code(error.statusCode);
+        response.message(error.message);
         return response;
       }
 
@@ -90,8 +103,10 @@ class AuthenticationsHandler {
       const response = h.response({
         status: 'error',
         message: 'Maaf, terjadi kegagalan pada server kami.',
+        data: [],
       });
       response.code(500);
+      response.message('Maaf, terjadi kegagalan pada server kami.');
       console.error(error);
       return response;
     }
@@ -105,17 +120,23 @@ class AuthenticationsHandler {
       await this._authenticationsService.verifyRefreshToken(refreshToken);
       await this._authenticationsService.deleteRefreshToken(refreshToken);
 
-      return {
+      const response = h.response({
         status: 'success',
         message: 'Refresh token berhasil dihapus',
-      };
+        data: [],
+      });
+      response.code(200);
+      response.message('Refresh token berhasil dihapus');
+      return response;
     } catch (error) {
       if (error instanceof ClientError) {
         const response = h.response({
           status: 'fail',
           message: error.message,
+          data: [],
         });
         response.code(error.statusCode);
+        response.message(error.message);
         return response;
       }
 
@@ -123,8 +144,10 @@ class AuthenticationsHandler {
       const response = h.response({
         status: 'error',
         message: 'Maaf, terjadi kegagalan pada server kami.',
+        data: [],
       });
       response.code(500);
+      response.message('Maaf, terjadi kegagalan pada server kami.');
       console.error(error);
       return response;
     }
