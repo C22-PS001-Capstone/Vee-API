@@ -3,7 +3,7 @@
 const {
   PostAuthenticationPayloadSchema,
   PutAuthenticationPayloadSchema,
-  DeleteAuthenticationPayloadSchema,
+  DeleteAuthenticationQuerySchema,
 } = require('./schema');
 const InvariantError = require('../../exceptions/InvariantError');
 
@@ -20,8 +20,8 @@ const AuthenticationsValidator = {
       throw new InvariantError(validationResult.error.message);
     }
   },
-  validateDeleteAuthenticationPayload: (payload) => {
-    const validationResult = DeleteAuthenticationPayloadSchema.validate(payload);
+  validateDeleteAuthenticationQuery: (query) => {
+    const validationResult = DeleteAuthenticationQuerySchema.validate(query);
     if (validationResult.error) {
       throw new InvariantError(validationResult.error.message);
     }
