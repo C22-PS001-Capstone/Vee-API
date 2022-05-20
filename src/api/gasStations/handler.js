@@ -16,7 +16,7 @@ class GasStationsHandler {
       this._validator.validateGasStationQuery(request.query);
       const { lat = 0, lon = 0 } = request.query;
 
-      const fetchResponse = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/fuel.json?type=poi&proximity=${lon},${lat}&access_token=pk.eyJ1IjoicHBhYmNkIiwiYSI6ImNsM2JzOGF2ajBhcmYzanBhNDFycnNyZzYifQ.fbVVyoTLNMbY8IeRU1af4w`);
+      const fetchResponse = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/fuel.json?type=poi&proximity=${lon},${lat}&access_token=${process.env.MAPBOX_API_KEY}`);
       const jsonResponse = await fetchResponse.json();
 
       const response = h.response({
