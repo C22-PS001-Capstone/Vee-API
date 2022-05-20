@@ -18,6 +18,9 @@ const users = require('./api/users');
 const UsersService = require('./services/postgres/UsersService');
 const UsersValidator = require('./validator/users');
 
+const gasStations = require('./api/gasStations');
+const GasStationsValidator = require('./validator/gasStations');
+
 const authentications = require('./api/authentications');
 const AuthenticationsService = require('./services/postgres/AuthenticationsService');
 const TokenManager = require('./tokenize/TokenManager');
@@ -86,6 +89,12 @@ const init = async () => {
       options: {
         service: usersService,
         validator: UsersValidator,
+      },
+    },
+    {
+      plugin: gasStations,
+      options: {
+        validator: GasStationsValidator,
       },
     },
     {
