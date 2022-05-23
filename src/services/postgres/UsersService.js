@@ -98,6 +98,41 @@ class UsersService {
       throw new NotFoundError('Gagal memperbarui users. Id tidak ditemukan');
     }
   }
+
+  async verifyCurrentPassword(id, passwordCurrent) {
+    const query = {
+      text: 'SELECT password FROM users WHERE id = $1',
+      values: [id],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rows.length) {
+      throw new NotFoundError('Gagal memperbarui password. Id tidak ditemukan');
+    }
+
+    const { password: hashedPassword } = result.rows[0];
+
+    const match = await bcrypt.compare(passwordCurrent, hashedPassword);
+
+    if (!match) {
+      throw new NotFoundError('Gagal memperbarui password. Password salah');
+    }
+  }
+
+  async editPasswordById(id, password) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const query = {
+      text: 'UPDATE users SET password = $1 WHERE id = $2 RETURNING id',
+      values: [hashedPassword, id],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rows.length) {
+      throw new NotFoundError('Gagal memperbarui password. Id tidak ditemukan');
+    }
+  }
 }
 
 module.exports = UsersService;

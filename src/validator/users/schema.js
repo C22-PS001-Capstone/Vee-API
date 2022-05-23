@@ -14,4 +14,12 @@ const PutFirstLastNameByIdSchemaPayload = Joi.object({
   lastname: Joi.string().required(),
 });
 
-module.exports = { UserPayloadSchema, PutFirstLastNameByIdSchemaPayload };
+const PutPasswordByIdSchemaPayload = Joi.object({
+  passwordCurrent: Joi.string().required(),
+  password: Joi.string().required(),
+  passwordConfirm: Joi.ref('password'),
+});
+
+module.exports = {
+  UserPayloadSchema, PutFirstLastNameByIdSchemaPayload, PutPasswordByIdSchemaPayload,
+};

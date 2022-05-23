@@ -24,6 +24,14 @@ const routes = (handler) => [
       auth: 'veeapp_jwt',
     },
   },
+  {
+    method: 'PUT',
+    path: '/passwords',
+    handler: handler.putPasswordByIdHandler,
+    options: {
+      auth: 'veeapp_jwt',
+    },
+  },
 ];
 
 module.exports = routes;
