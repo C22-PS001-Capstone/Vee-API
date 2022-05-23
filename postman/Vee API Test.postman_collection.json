@@ -387,6 +387,44 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Ger nearest gas station",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItU2tFYjU1YjFmRmsyc045VyIsImlhdCI6MTY1MzMxNTk3OH0.colIpewGzQsZQ7J2Mx6-FVoc6e4zr1LbQ3JwSIE28gw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/gasstations?lat=0.672314&lon=101.598120",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"gasstations"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "0.672314"
+						},
+						{
+							"key": "lon",
+							"value": "101.598120"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
