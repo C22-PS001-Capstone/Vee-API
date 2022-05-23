@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fb2766de-0bf1-4ee4-935b-67bbb33b2e7c",
+		"_postman_id": "8f83ac43-8658-4788-b5d7-e998eab39e34",
 		"name": "Vee API Test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "14640466"
@@ -131,6 +131,33 @@
 					"port": "5000",
 					"path": [
 						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Password",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"passwordCurrent\": \"ryan\",\r\n    \"password\": \"contoh\",\r\n    \"passwordConfirm\": \"contoh\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/passwords",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"passwords"
 					]
 				}
 			},
