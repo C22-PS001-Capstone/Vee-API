@@ -7,7 +7,6 @@ const bcrypt = require('bcrypt');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 const AuthenticationError = require('../../exceptions/AuthenticationError');
-const ClientError = require('../../exceptions/ClientError');
 
 class UsersService {
   constructor() {
@@ -35,6 +34,7 @@ class UsersService {
     return result.rows[0].id;
   }
 
+  // cek existing email
   async verifyNewEmail(email) {
     const query = {
       text: 'SELECT email FROM users WHERE email = $1',
@@ -63,6 +63,7 @@ class UsersService {
     return result.rows[0];
   }
 
+  // cek user password
   async verifyUserCredential(email, password) {
     const query = {
       text: 'SELECT id, password FROM users WHERE email = $1',
@@ -85,40 +86,16 @@ class UsersService {
     return id;
   }
 
-  async putAuthenticationHandler(request, h) {
-    try {
-      this._validator.validatePutAuthenticationPayload(request.payload);
+  async editFirstLastNameById(id, { firstname, lastname }) {
+    const query = {
+      text: 'UPDATE users SET firstname = $1, lastname = $2 WHERE id = $3 RETURNING id',
+      values: [firstname, lastname, id],
+    };
 
-      const { refreshToken } = request.payload;
-      await this._authenticationsService.verifyRefreshToken(refreshToken);
-      const { id } = this._tokenManager.verifyRefreshToken(refreshToken);
+    const result = await this._pool.query(query);
 
-      const accessToken = this._tokenManager.generateAccessToken({ id });
-      return {
-        status: 'success',
-        message: 'Access Token berhasil diperbarui',
-        data: {
-          accessToken,
-        },
-      };
-    } catch (error) {
-      if (error instanceof ClientError) {
-        const response = h.response({
-          status: 'fail',
-          message: error.message,
-        });
-        response.code(error.statusCode);
-        return response;
-      }
-
-      // Server ERROR!
-      const response = h.response({
-        status: 'error',
-        message: 'Maaf, terjadi kegagalan pada server kami.',
-      });
-      response.code(500);
-      console.error(error);
-      return response;
+    if (!result.rows.length) {
+      throw new NotFoundError('Gagal memperbarui users. Id tidak ditemukan');
     }
   }
 }

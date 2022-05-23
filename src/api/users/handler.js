@@ -12,6 +12,7 @@ class UsersHandler {
 
     this.postUserHandler = this.postUserHandler.bind(this);
     this.getUserByIdHandler = this.getUserByIdHandler.bind(this);
+    this.putFirstLastNameByIdHandler = this.putFirstLastNameByIdHandler.bind(this);
   }
 
   async postUserHandler(request, h) {
@@ -89,6 +90,46 @@ class UsersHandler {
       }
 
       // server ERROR!
+      const response = h.response({
+        status: 'error',
+        message: 'Maaf, terjadi kegagalan pada server kami.',
+        data: [],
+      });
+      response.code(500);
+      response.message('Maaf, terjadi kegagalan pada server kami.');
+      console.error(error);
+      return response;
+    }
+  }
+
+  async putFirstLastNameByIdHandler(request, h) {
+    try {
+      this._validator.validatePutFirstLastNameByIdPayload(request.payload);
+      const { firstname, lastname } = request.payload;
+      const { id } = request.auth.credentials;
+
+      await this._service.editFirstLastNameById(id, { firstname, lastname });
+
+      const response = h.response({
+        status: 'success',
+        message: 'Firstname Lastname berhasil diperbarui',
+        data: [],
+      });
+      response.code(200);
+      response.message('Firstname Lastname berhasil diperbarui');
+      return response;
+    } catch (error) {
+      if (error instanceof ClientError) {
+        const response = h.response({
+          status: 'fail',
+          message: error.message,
+          data: [],
+        });
+        response.code(error.statusCode);
+        response.message(error.message);
+        return response;
+      }
+      // Server ERROR!
       const response = h.response({
         status: 'error',
         message: 'Maaf, terjadi kegagalan pada server kami.',

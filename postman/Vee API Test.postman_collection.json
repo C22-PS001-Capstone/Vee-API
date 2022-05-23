@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "6ee9d8a2-db15-47aa-8f71-2c9653339808",
+		"_postman_id": "fb2766de-0bf1-4ee4-935b-67bbb33b2e7c",
 		"name": "Vee API Test",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14640466"
 	},
 	"item": [
 		{
@@ -78,7 +79,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItU2tFYjU1YjFmRmsyc045VyIsImlhdCI6MTY1MjQ1MjA0NX0.9aKcjoRWZdY7LmtPy4Wm9TVKRSuQKytMdTHqaBsElIg",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItU2tFYjU1YjFmRmsyc045VyIsImlhdCI6MTY1MzI4OTAyMH0.jpr4QweS_oonC5RAxbyz5k2RLZ6Ywicl54hxGPZRz6k",
 							"type": "string"
 						}
 					]
@@ -86,14 +87,50 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:5000/users/user-SkEb55b1fFk2sN9W",
+					"raw": "localhost:5000/users",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
-						"users",
-						"user-SkEb55b1fFk2sN9W"
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Fistname Lastname",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItU2tFYjU1YjFmRmsyc045VyIsImlhdCI6MTY1MzI4OTAyMH0.jpr4QweS_oonC5RAxbyz5k2RLZ6Ywicl54hxGPZRz6k",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\": \"Ryan\",\r\n    \"lastname\": \"Bakhri\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/users",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users"
 					]
 				}
 			},
