@@ -24,12 +24,13 @@ function distance(lat1, lon1, lat2, lon2) {
   dist = dist * 180 / Math.PI;
   dist = dist * 60 * 1.1515;
   dist *= 1.609344;
-  return dist;
+  return dist.toFixed(2);
 }
 
 class GasStationsHandler {
-  constructor(validator) {
+  constructor(service, validator) {
     this._validator = validator;
+    this._service = service;
     this.getGasStationsHandler = this.getGasStationsHandler.bind(this);
   }
 
@@ -38,21 +39,47 @@ class GasStationsHandler {
       this._validator.validateGasStationQuery(request.query);
       const { lat = 0, lon = 0 } = request.query;
 
-      const fetchResponse = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/fuel.json?type=poi&proximity=${lon},${lat}&access_token=${process.env.MAPBOX_API_KEY}`);
-      const jsonResponse = await fetchResponse.json();
-
       const gasstations = [];
 
-      jsonResponse.features.forEach((gs) => {
-        gasstations.push({
-          place_name: gs.place_name,
-          address: gs.properties.address,
-          vendor: gs.text,
-          distance: distance(lat, lon, gs.geometry.coordinates[1], gs.geometry.coordinates[0]),
-          latitude: gs.geometry.coordinates[1],
-          longitude: gs.geometry.coordinates[0],
+      const gasstationsdb = await this._service.getGasStations({ lat, lon });
+
+      if (gasstationsdb.length < 5) {
+        const fetchResponse = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=10000&type=gas_station&key=${process.env.MAPS_API_KEY}`);
+        const jsonResponse = await fetchResponse.json();
+
+        jsonResponse.results.forEach(async (gs) => {
+          let vendor = 'Pertamina';
+          if (gs.name.match(/spbu/i) || gs.name.match(/pom/i)) {
+            if (gs.name.match(/shell/i)) {
+              vendor = 'Shell';
+            }
+
+            gasstations.push({
+              id: gs.place_id,
+              name: gs.name,
+              vendor,
+              distance: distance(lat, lon, gs.geometry.location.lat, gs.geometry.location.lng),
+              lat: gs.geometry.location.lat,
+              lon: gs.geometry.location.lng,
+            });
+
+            await this._service.addGasStation({
+              id: gs.place_id, name: gs.name, lat: gs.geometry.location.lat, lon: gs.geometry.location.lng, vendor,
+            });
+          }
         });
-      });
+      } else {
+        gasstationsdb.forEach((gs) => {
+          gasstations.push({
+            id: gs.id,
+            name: gs.name,
+            vendor: gs.vendor,
+            distance: distance(lat, lon, gs.lat, gs.lon),
+            lat: gs.lat,
+            lon: gs.lon,
+          });
+        });
+      }
 
       const response = h.response({
         status: 'success',

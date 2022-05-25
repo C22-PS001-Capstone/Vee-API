@@ -20,6 +20,7 @@ const UsersValidator = require('./validator/users');
 
 const gasStations = require('./api/gasStations');
 const GasStationsValidator = require('./validator/gasStations');
+const GasStationsService = require('./services/postgres/GasStationsService');
 
 const authentications = require('./api/authentications');
 const AuthenticationsService = require('./services/postgres/AuthenticationsService');
@@ -29,6 +30,7 @@ const AuthenticationsValidator = require('./validator/authentications');
 const init = async () => {
   const activitiesService = new ActivitiesService();
   const usersService = new UsersService();
+  const gasStationsService = new GasStationsService();
   const authenticationsService = new AuthenticationsService();
   const server = Hapi.server({
     port: process.env.PORT,
@@ -94,6 +96,7 @@ const init = async () => {
     {
       plugin: gasStations,
       options: {
+        service: gasStationsService,
         validator: GasStationsValidator,
       },
     },
