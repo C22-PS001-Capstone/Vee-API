@@ -52,6 +52,8 @@ class GasStationsHandler {
           if (gs.name.match(/spbu/i) || gs.name.match(/pom/i)) {
             if (gs.name.match(/shell/i)) {
               vendor = 'Shell';
+            } else if (gs.name.match(/bp/i)) {
+              vendor = 'Bp';
             }
 
             gasstations.push({
