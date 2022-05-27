@@ -1,27 +1,29 @@
 # App Engine With Cloud SQL
 
-## App Engine
+## GCP Resources
+
+### App Engine
 
 - provice app.yaml
   - dont define HOST env variable, because it define by app engine
 - provide role to app engine service account for access cloud sql
 
-## Cloud SQL
+### Cloud SQL
 
 - provide public ip
 - define authorized network
 
-# Notes
+## Notes
 
 - install sql extensions
 - cant run migrate because cannot app engine full managed service
 - as solution we can import database schema
 
-# Need to Improve
+## Need to Improve
 
 in this deployment model, betwen cloud sql and app engine connected in public way.
 
-# Database query
+## Database query
 
 ```
 CREATE TABLE public.users (
@@ -68,4 +70,9 @@ CREATE TABLE public.gasstations (
 	vendor text NOT NULL,
 	CONSTRAINT gasstations_pkey PRIMARY KEY (id)
 );
+```
+
+```
+create extension cube;
+create extension earthdistance;
 ```
