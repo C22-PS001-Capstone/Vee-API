@@ -5,7 +5,7 @@
 ### App Engine
 
 - provice app.yaml
-  - dont define HOST env variable, because it define by app engine
+  - dont define PORT env variable, because it define by app engine
 - provide role to app engine service account for access cloud sql
 
 ### Cloud SQL
