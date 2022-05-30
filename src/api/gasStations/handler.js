@@ -54,6 +54,8 @@ class GasStationsHandler {
               vendor = 'Shell';
             } else if (gs.name.match(/bp/i)) {
               vendor = 'Bp';
+            } else if (gs.name.match(/mini/i)) {
+              vendor = 'Pertamini';
             }
 
             gasstations.push({
