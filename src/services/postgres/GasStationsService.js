@@ -21,8 +21,8 @@ class GasStationsService {
 
   async getGasStations({ lat, lon }) {
     const query = {
-      text: 'SELECT * FROM gasstations WHERE (point(lon,lat) <@> point($1, $2)) < 6',
-      values: [lon, lat],
+      text: 'SELECT *, (point(lon,lat) <@> point($1, $2)) as distance FROM gasstations WHERE (point(lon,lat) <@> point($3, $4)) < 6',
+      values: [lon, lat, lon, lat],
     };
     const result = await this._pool.query(query);
     return result.rows;
