@@ -70,9 +70,7 @@ class AuthenticationsHandler {
 
   async postGoogleAuthenticationHandler(request, h) {
     try {
-      this._validator.validatePostGoogleAuthenticationPayload(request.payload);
-
-      const { idToken } = request.payload;
+      const { authorization: idToken } = request.headers;
       const {
         aud, email, given_name, family_name,
       } = this._tokenManager.getTokenPayload(idToken);
