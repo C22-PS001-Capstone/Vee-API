@@ -25,7 +25,7 @@ exports.up = (pgm) => {
     },
     password: {
       type: 'TEXT',
-      notNull: true,
+      notNull: false,
     },
   });
 };

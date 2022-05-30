@@ -15,8 +15,13 @@ const DeleteAuthenticationQuerySchema = Joi.object({
   refreshToken: Joi.string().required(),
 });
 
+const PostGoogleAuthenticationPayloadSchema = Joi.object({
+  idToken: Joi.string().required(),
+});
+
 module.exports = {
   PostAuthenticationPayloadSchema,
   PutAuthenticationPayloadSchema,
   DeleteAuthenticationQuerySchema,
+  PostGoogleAuthenticationPayloadSchema,
 };

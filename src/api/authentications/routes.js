@@ -21,6 +21,11 @@ const routes = (handler) => [
     },
   },
   {
+    method: 'POST',
+    path: '/authentications/google',
+    handler: handler.postGoogleAuthenticationHandler,
+  },
+  {
     method: 'PUT',
     path: '/authentications',
     handler: handler.putAuthenticationHandler,

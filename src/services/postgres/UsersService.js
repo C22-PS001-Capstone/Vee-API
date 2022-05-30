@@ -34,6 +34,26 @@ class UsersService {
     return result.rows[0].id;
   }
 
+  async addUserGoogle({
+    firstname, lastname, email, password,
+  }) {
+    await this.verifyNewEmail(email);
+
+    const id = `user-${nanoid(16)}`;
+
+    const query = {
+      text: 'INSERT INTO users VALUES($1, $2, $3, $4, $5) RETURNING id',
+      values: [id, firstname, lastname, email, password],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rows.length) {
+      throw new InvariantError('User gagal ditambahkan');
+    }
+    return result.rows[0].id;
+  }
+
   // cek existing email
   async verifyNewEmail(email) {
     const query = {
@@ -48,9 +68,20 @@ class UsersService {
     }
   }
 
+  async verifyUserGoogle(email) {
+    const query = {
+      text: 'SELECT * FROM users WHERE email = $1',
+      values: [email],
+    };
+
+    const result = await this._pool.query(query);
+
+    return result;
+  }
+
   async getUserById(userId) {
     const query = {
-      text: 'SELECT id, firstname, lastname, email FROM users WHERE id = $1',
+      text: 'SELECT * FROM users WHERE id = $1',
       values: [userId],
     };
 
@@ -60,7 +91,18 @@ class UsersService {
       throw new NotFoundError('User tidak ditemukan');
     }
 
-    return result.rows[0];
+    let passNull = false;
+    if (result.rows[0].password == null) {
+      passNull = true;
+    }
+
+    return {
+      id: result.rows[0].id,
+      firstname: result.rows[0].firstname,
+      lastname: result.rows[0].lastname,
+      email: result.rows[0].email,
+      passNull,
+    };
   }
 
   // cek user password

@@ -31,7 +31,7 @@ CREATE TABLE public.users (
 	firstname text NOT NULL,
 	lastname text NULL,
 	email text NOT NULL,
-	"password" text NOT NULL,
+	"password" text,
 	CONSTRAINT users_email_key UNIQUE (email),
 	CONSTRAINT users_pkey PRIMARY KEY (id)
 );
