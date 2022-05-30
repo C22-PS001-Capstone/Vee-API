@@ -1,23 +1,12 @@
 steps:
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
-    secretEnv:
-      [
-        "ACCESS_TOKEN_KEY",
-        "MAPS_API_KEY",
-        "PGHOST",
-        "PGPASSWORD",
-        "PGUSER",
-        "REFRESH_TOKEN_KEY",
-      ]
+    secretEnv: ["ACCESS_TOKEN_KEY", "MAPS_API_KEY", "REFRESH_TOKEN_KEY"]
     entrypoint: "bash"
     args:
       - -c
       - |
         echo $'\n  ACCESS_TOKEN_KEY: '$$ACCESS_TOKEN_KEY >> app.yaml
         echo $'\n  MAPS_API_KEY: '$$MAPS_API_KEY >> app.yaml
-        echo $'\n  PGHOST: '$$PGHOST >> app.yaml
-        echo $'\n  PGPASSWORD: '$$PGPASSWORD >> app.yaml
-        echo $'\n  PGUSER: '$$PGUSER >> app.yaml
         echo $'\n  REFRESH_TOKEN_KEY: '$$REFRESH_TOKEN_KEY >> app.yaml
         gcloud config set app/cloud_build_timeout 1600
         gcloud app deploy
@@ -29,11 +18,5 @@ availableSecrets:
       env: "ACCESS_TOKEN_KEY"
     - versionName: projects/vee-project-351306/secrets/MAPS_API_KEY/versions/1
       env: "MAPS_API_KEY"
-    - versionName: projects/vee-project-351306/secrets/PGHOST/versions/1
-      env: "PGHOST"
-    - versionName: projects/vee-project-351306/secrets/PGPASSWORD/versions/1
-      env: "PGPASSWORD"
-    - versionName: projects/vee-project-351306/secrets/PGUSER/versions/1
-      env: "PGUSER"
     - versionName: projects/vee-project-351306/secrets/REFRESH_TOKEN_KEY/versions/1
       env: "REFRESH_TOKEN_KEY"
