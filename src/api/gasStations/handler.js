@@ -48,7 +48,7 @@ class GasStationsHandler {
         const jsonResponse = await fetchResponse.json();
 
         jsonResponse.results.forEach(async (gs) => {
-          let vendor = 'Pertamina';
+          let vendor = '';
           if (gs.name.match(/spbu/i) || gs.name.match(/pom/i)) {
             if (gs.name.match(/shell/i)) {
               vendor = 'Shell';
@@ -56,6 +56,8 @@ class GasStationsHandler {
               vendor = 'Bp';
             } else if (gs.name.match(/mini/i)) {
               vendor = 'Pertamini';
+            } else {
+              vendor = 'Pertamina';
             }
 
             gasstations.push({
