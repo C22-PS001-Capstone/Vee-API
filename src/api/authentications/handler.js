@@ -102,8 +102,8 @@ class AuthenticationsHandler {
         return response;
       }
 
-      const accessToken = this._tokenManager.generateAccessToken({ id: result.id });
-      const refreshToken = this._tokenManager.generateRefreshToken({ id: result.id });
+      const accessToken = this._tokenManager.generateAccessToken({ id: result.rows[0].id });
+      const refreshToken = this._tokenManager.generateRefreshToken({ id: result.rows[0].id });
 
       await this._authenticationsService.addRefreshToken(refreshToken);
 
