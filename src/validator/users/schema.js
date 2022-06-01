@@ -20,6 +20,14 @@ const PutPasswordByIdSchemaPayload = Joi.object({
   passwordConfirm: Joi.ref('password'),
 });
 
+const PutPasswordGoogleByIdSchemaPayload = Joi.object({
+  password: Joi.string().required(),
+  passwordConfirm: Joi.ref('password'),
+});
+
 module.exports = {
-  UserPayloadSchema, PutFirstLastNameByIdSchemaPayload, PutPasswordByIdSchemaPayload,
+  UserPayloadSchema,
+  PutFirstLastNameByIdSchemaPayload,
+  PutPasswordByIdSchemaPayload,
+  PutPasswordGoogleByIdSchemaPayload,
 };

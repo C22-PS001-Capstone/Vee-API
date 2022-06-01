@@ -14,6 +14,7 @@ class UsersHandler {
     this.getUserByIdHandler = this.getUserByIdHandler.bind(this);
     this.putFirstLastNameByIdHandler = this.putFirstLastNameByIdHandler.bind(this);
     this.putPasswordByIdHandler = this.putPasswordByIdHandler.bind(this);
+    this.putPassworGoogledByIdHandler = this.putPassworGoogledByIdHandler.bind(this);
   }
 
   async postUserHandler(request, h) {
@@ -150,6 +151,46 @@ class UsersHandler {
       const { id } = request.auth.credentials;
 
       await this._service.verifyCurrentPassword(id, passwordCurrent);
+
+      await this._service.editPasswordById(id, password);
+
+      const response = h.response({
+        status: 'success',
+        message: 'Password berhasil diperbarui',
+        data: [],
+      });
+      response.code(200);
+      response.message('Password berhasil diperbarui');
+      return response;
+    } catch (error) {
+      if (error instanceof ClientError) {
+        const response = h.response({
+          status: 'fail',
+          message: error.message,
+          data: [],
+        });
+        response.code(error.statusCode);
+        response.message(error.message);
+        return response;
+      }
+      // Server ERROR!
+      const response = h.response({
+        status: 'error',
+        message: 'Maaf, terjadi kegagalan pada server kami.',
+        data: [],
+      });
+      response.code(500);
+      response.message('Maaf, terjadi kegagalan pada server kami.');
+      console.error(error);
+      return response;
+    }
+  }
+
+  async putPassworGoogledByIdHandler(request, h) {
+    try {
+      this._validator.validatePutPassworGoogledByIdPayload(request.payload);
+      const { password } = request.payload;
+      const { id } = request.auth.credentials;
 
       await this._service.editPasswordById(id, password);
 

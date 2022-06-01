@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 const InvariantError = require('../../exceptions/InvariantError');
-const { UserPayloadSchema, PutFirstLastNameByIdSchemaPayload, PutPasswordByIdSchemaPayload } = require('./schema');
+const { UserPayloadSchema, PutFirstLastNameByIdSchemaPayload, PutPasswordByIdSchemaPayload, PutPasswordGoogleByIdSchemaPayload } = require('./schema');
 
 const UsersValidator = {
   validateUserPayload: (payload) => {
@@ -21,6 +21,14 @@ const UsersValidator = {
 
   validatePutPasswordByIdPayload: (payload) => {
     const validationResult = PutPasswordByIdSchemaPayload.validate(payload);
+
+    if (validationResult.error) {
+      throw new InvariantError(validationResult.error.message);
+    }
+  },
+
+  validatePutPassworGoogledByIdPayload: (payload) => {
+    const validationResult = PutPasswordGoogleByIdSchemaPayload.validate(payload);
 
     if (validationResult.error) {
       throw new InvariantError(validationResult.error.message);
