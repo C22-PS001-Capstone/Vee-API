@@ -29,7 +29,7 @@ availableSecrets:
       env: "ACCESS_TOKEN_KEY"
     - versionName: projects/vee-project-351306/secrets/MAPS_API_KEY/versions/1
       env: "MAPS_API_KEY"
-    - versionName: projects/vee-project-351306/secrets/PGHOST/versions/1
+    - versionName: projects/1005222607863/secrets/PGHOST/versions/2
       env: "PGHOST"
     - versionName: projects/vee-project-351306/secrets/PGPASSWORD/versions/1
       env: "PGPASSWORD"

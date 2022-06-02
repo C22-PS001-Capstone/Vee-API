@@ -12,6 +12,7 @@
 - cloud repository : ci/cd
 - secret manager : save key or credential
 - Monitoring : creating alert for sql and app engine cpu utilization
+- API Places : search nearby gas station
 
 ## Action need to do
 

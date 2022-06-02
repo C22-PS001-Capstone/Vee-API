@@ -68,6 +68,8 @@ CREATE TABLE public.gasstations (
 	lat float8 NULL,
 	lon float8 NULL,
 	vendor text NOT NULL,
+	operate bool NOT NULL,
+	time_create int8 NOT NULL,
 	CONSTRAINT gasstations_pkey PRIMARY KEY (id)
 );
 ```
@@ -75,4 +77,9 @@ CREATE TABLE public.gasstations (
 ```
 create extension cube;
 create extension earthdistance;
+```
+
+```
+GRANT ALL PRIVILEGES ON DATABASE veeapp TO developer;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO developer;
 ```
