@@ -43,36 +43,75 @@ class GasStationsHandler {
 
       const gasstationsdb = await this._service.getGasStations({ lat, lon });
 
-      if (gasstationsdb.length < 5) {
+      if (gasstationsdb.length === 0) {
         const fetchResponse = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=10000&type=gas_station&key=${process.env.MAPS_API_KEY}`);
         const jsonResponse = await fetchResponse.json();
 
         jsonResponse.results.forEach(async (gs) => {
           let vendor = '';
-          if (gs.name.match(/spbu/i) || gs.name.match(/pom/i)) {
-            if (gs.name.match(/shell/i)) {
-              vendor = 'Shell';
-            } else if (gs.name.match(/bp/i)) {
-              vendor = 'Bp';
-            } else if (gs.name.match(/mini/i)) {
-              vendor = 'Pertamini';
-            } else {
-              vendor = 'Pertamina';
-            }
-
-            gasstations.push({
-              id: gs.place_id,
-              name: gs.name,
-              vendor,
-              distance: distance(lat, lon, gs.geometry.location.lat, gs.geometry.location.lng),
-              lat: gs.geometry.location.lat,
-              lon: gs.geometry.location.lng,
-            });
-
-            await this._service.addGasStation({
-              id: gs.place_id, name: gs.name, lat: gs.geometry.location.lat, lon: gs.geometry.location.lng, vendor,
-            });
+          let open;
+          try {
+            open = gs.opening_hours.open_now;
+          } catch (e) {
+            return;
           }
+
+          if (open !== undefined) {
+            if (gs.name.match(/spbu/i) || gs.name.match(/pom/i)) {
+              if (gs.name.match(/shell/i)) {
+                vendor = 'Shell';
+              } else if (gs.name.match(/bp/i)) {
+                vendor = 'Bp';
+              } else if (gs.name.match(/mini/i)) {
+                vendor = 'Pertamini';
+              } else {
+                vendor = 'Pertamina';
+              }
+
+              gasstations.push({
+                id: gs.place_id,
+                name: gs.name,
+                vendor,
+                distance: distance(lat, lon, gs.geometry.location.lat, gs.geometry.location.lng),
+                lat: gs.geometry.location.lat,
+                lon: gs.geometry.location.lng,
+                operate: gs.opening_hours.open_now,
+              });
+
+              await this._service.addGasStation({
+                id: gs.place_id, name: gs.name, lat: gs.geometry.location.lat, lon: gs.geometry.location.lng, vendor, operate: gs.opening_hours.open_now, time_create: Date.now(),
+              });
+            }
+          }
+        });
+      } else if ((gasstationsdb[0].time_create / 1000 + 86400) <= (Date.now() / 1000)) {
+        const fetchResponse = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=10000&type=gas_station&key=${process.env.MAPS_API_KEY}`);
+        const jsonResponse = await fetchResponse.json();
+
+        jsonResponse.results.forEach(async (gs) => {
+          let open;
+          try {
+            open = gs.opening_hours.open_now;
+          } catch (e) {
+            return;
+          }
+          await this._service.editGasStation({
+            id: gs.place_id, operate: open, time_create: Date.now(),
+          });
+        });
+
+        const gasstationsdbupdate = await this._service.getGasStations({ lat, lon });
+
+        gasstationsdbupdate.forEach((gs) => {
+          gasstations.push({
+            id: gs.id,
+            name: gs.name,
+            vendor: gs.vendor,
+            distance: distance(lat, lon, gs.lat, gs.lon),
+            lat: gs.lat,
+            lon: gs.lon,
+            operate: gs.operate,
+          });
         });
       } else {
         gasstationsdb.forEach((gs) => {
@@ -83,6 +122,7 @@ class GasStationsHandler {
             distance: distance(lat, lon, gs.lat, gs.lon),
             lat: gs.lat,
             lon: gs.lon,
+            operate: gs.operate,
           });
         });
       }

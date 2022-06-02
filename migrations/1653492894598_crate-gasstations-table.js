@@ -26,6 +26,14 @@ exports.up = (pgm) => {
       type: 'text',
       notNull: true,
     },
+    operate: {
+      type: 'boolean',
+      notNull: true,
+    },
+    time_create: {
+      type: 'bigint',
+      notNull: true,
+    },
   });
 };
 
