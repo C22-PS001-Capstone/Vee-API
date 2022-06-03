@@ -84,7 +84,7 @@ class GasStationsHandler {
             }
           }
         });
-      } else if ((gasstationsdb[0].time_create / 1000 + 86400) <= (Date.now() / 1000)) {
+      } else if ((gasstationsdb[0].time_create + 86400000) <= Date.now()) {
         const fetchResponse = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=10000&type=gas_station&key=${process.env.MAPS_API_KEY}`);
         const jsonResponse = await fetchResponse.json();
 
@@ -95,9 +95,11 @@ class GasStationsHandler {
           } catch (e) {
             return;
           }
-          await this._service.editGasStation({
-            id: gs.place_id, operate: open, time_create: Date.now(),
-          });
+          if (open !== undefined) {
+            await this._service.editGasStation({
+              id: gs.place_id, operate: open, time_create: Date.now(),
+            });
+          }
         });
 
         const gasstationsdbupdate = await this._service.getGasStations({ lat, lon });
