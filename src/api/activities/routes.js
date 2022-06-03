@@ -1,7 +1,6 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable linebreak-style */
-const Joi = require('joi');
 
 const routes = (handler) => [
   {
@@ -26,16 +25,6 @@ const routes = (handler) => [
     handler: handler.getActByIdHandler,
     options: {
       auth: 'veeapp_jwt',
-      description: 'Get activities by id',
-      notes: 'Returns a activities item detail by the id passed in the path',
-      tags: ['api'],
-      validate: {
-        params: Joi.object({
-          id: Joi.string()
-            .required()
-            .description('the id for the activities item'),
-        }),
-      },
     },
   },
   {

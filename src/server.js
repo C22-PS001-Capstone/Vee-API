@@ -2,10 +2,6 @@
 /* eslint-disable no-console */
 const Hapi = require('@hapi/hapi');
 const Jwt = require('@hapi/jwt');
-const Inert = require('@hapi/inert');
-const Vision = require('@hapi/vision');
-const HapiSwagger = require('hapi-swagger');
-const Pack = require('../package.json');
 require('dotenv').config();
 
 // activities
@@ -42,23 +38,9 @@ const init = async () => {
     },
   });
 
-  const swaggerOptions = {
-    info: {
-      title: 'Vee API Documentation',
-      version: Pack.version,
-      description: 'This is a Vee API documentation.',
-    },
-  };
-
   await server.register([
     {
       plugin: Jwt,
-    },
-    Inert,
-    Vision,
-    {
-      plugin: HapiSwagger,
-      options: swaggerOptions,
     },
   ]);
 
