@@ -38,6 +38,16 @@ class GasStationsHandler {
     try {
       this._validator.validateGasStationQuery(request.query);
       const { lat = 0, lon = 0 } = request.query;
+      if (lat === 0 && lon === 0) {
+        const response = h.response({
+          status: 'success',
+          message: 'Gas Stations terdekat berhasil didapatkan',
+          data: [],
+        });
+        response.code(200);
+        response.message('Gas Stations terdekat berhasil didapatkan');
+        return response;
+      }
 
       const gasstations = [];
 
