@@ -99,6 +99,15 @@ class ActivitiesService {
       throw new AuthorizationError('Anda tidak berhak mengakses resource ini');
     }
   }
+
+  async getActsPrice(owner) {
+    const query = {
+      text: 'SELECT price FROM activities WHERE owner = $1',
+      values: [owner],
+    };
+    const result = await this._pool.query(query);
+    return result.rows;
+  }
 }
 
 module.exports = ActivitiesService;

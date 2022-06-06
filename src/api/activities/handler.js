@@ -208,9 +208,13 @@ class ActsHandler {
 
   async postForecastHandler(request, h) {
     try {
-      this._validator.validatePostForecastPayload(request.payload);
-      const { data } = request.payload;
+      const { id } = request.auth.credentials;
 
+      const result = await this._service.getActsPrice(id);
+      const data = [];
+      result.forEach((x) => {
+        data.push(x.price);
+      });
       const fetchResponse = await fetch('https://vee-ml-deployment-jbrk3bh3ia-et.a.run.app/v2/predict', {
         method: 'POST',
         headers: {

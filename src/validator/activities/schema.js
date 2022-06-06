@@ -10,8 +10,4 @@ const ActPayloadSchema = Joi.object({
   liter: Joi.number().required(),
 });
 
-const PostForecastPayloadSchema = Joi.object({
-  data: Joi.array().items(Joi.number()),
-});
-
-module.exports = { ActPayloadSchema, PostForecastPayloadSchema };
+module.exports = { ActPayloadSchema };
