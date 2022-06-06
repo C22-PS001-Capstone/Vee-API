@@ -2,6 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable linebreak-style */
 /* eslint-disable no-console */
+const fetch = require('node-fetch');
 const ClientError = require('../../exceptions/ClientError');
 
 class ActsHandler {
@@ -13,6 +14,7 @@ class ActsHandler {
     this.getActByIdHandler = this.getActByIdHandler.bind(this);
     this.putActByIdHandler = this.putActByIdHandler.bind(this);
     this.deleteActByIdHandler = this.deleteActByIdHandler.bind(this);
+    this.postForecastHandler = this.postForecastHandler.bind(this);
   }
 
   async postActHandler(request, h) {
@@ -196,6 +198,52 @@ class ActsHandler {
         status: 'error',
         message: 'Maaf, terjadi kegagalan pada server kami.',
         daata: [],
+      });
+      response.code(500);
+      response.message('Maaf, terjadi kegagalan pada server kami.');
+      console.error(error);
+      return response;
+    }
+  }
+
+  async postForecastHandler(request, h) {
+    try {
+      this._validator.validatePostForecastPayload(request.payload);
+      const { data } = request.payload;
+
+      const fetchResponse = await fetch('https://vee-ml-deployment-jbrk3bh3ia-et.a.run.app/v2/predict', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data }),
+      });
+      const jsonResponse = await fetchResponse.json();
+
+      const response = h.response({
+        status: 'success',
+        message: 'Forecast berhasil didapatkan',
+        data: jsonResponse,
+      });
+      response.code(200);
+      response.message('Forecast berhasil didapatkan');
+      return response;
+    } catch (error) {
+      if (error instanceof ClientError) {
+        const response = h.response({
+          status: 'fail',
+          message: error.message,
+          data: [],
+        });
+        response.code(error.statusCode);
+        response.message(error.message);
+        return response;
+      }
+      // Server ERROR!
+      const response = h.response({
+        status: 'error',
+        message: 'Maaf, terjadi kegagalan pada server kami.',
+        data: [],
       });
       response.code(500);
       response.message('Maaf, terjadi kegagalan pada server kami.');

@@ -43,6 +43,14 @@ const routes = (handler) => [
       auth: 'veeapp_jwt',
     },
   },
+  {
+    method: 'POST',
+    path: '/forecast',
+    handler: handler.postForecastHandler,
+    options: {
+      auth: 'veeapp_jwt',
+    },
+  },
 ];
 
 module.exports = routes;
