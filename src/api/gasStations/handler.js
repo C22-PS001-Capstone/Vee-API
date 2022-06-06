@@ -4,6 +4,8 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable linebreak-style */
 /* eslint-disable no-console */
+/* eslint-disable eqeqeq */
+
 const fetch = require('node-fetch');
 const ClientError = require('../../exceptions/ClientError');
 
@@ -37,8 +39,10 @@ class GasStationsHandler {
   async getGasStationsHandler(request, h) {
     try {
       this._validator.validateGasStationQuery(request.query);
-      const { lat = 0, lon = 0 } = request.query;
-      if (lat === 0 && lon === 0) {
+      const { lat = 0.0, lon = 0.0 } = request.query;
+
+      if (lat == 0.0 && lon == 0.0) {
+        console.log('jalan nih');
         const response = h.response({
           status: 'success',
           message: 'Gas Stations terdekat berhasil didapatkan',
