@@ -13,6 +13,7 @@
 - secret manager : save key or credential
 - Monitoring : creating alert for sql and app engine cpu utilization
 - API Places : search nearby gas station
+- Cloud Run : deploy api for ml
 
 ## Action need to do
 
