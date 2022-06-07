@@ -23,6 +23,24 @@
 
 in this deployment model, betwen cloud sql and app engine connected in public way.
 
+## Deploying API at App Engine
+
+1. Enable the App Engine Admin API
+2. Enable the Cloud Build API
+3. Create an app engine with node.js as language and standard as environment
+4. Clone the github to cloud
+```
+git clone https://github.com/C22-PS001-Capstone/Vee-API.git
+```
+5.Change the directory to API directory
+```
+cd Vee-API
+```
+6.  Deploying the API
+```
+gcloud app deploy
+```
+
 ## Database query
 
 ```
