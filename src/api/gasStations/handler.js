@@ -22,7 +22,7 @@ async function distance(lat1, lon1, lat2, lon2) {
 
   const jarak = jsonResponse.rows[0].elements[0].distance.value;
 
-  return jarak / 1000;
+  return (jarak / 1000).toFixed(2);
 }
 
 class GasStationsHandler {
