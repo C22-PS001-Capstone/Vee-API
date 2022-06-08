@@ -42,6 +42,15 @@ class ActivitiesService {
     return result.rows;
   }
 
+  async getActsByTime({ owner, timeopt, time }) {
+    const query = {
+      text: 'SELECT * from activities where date_part($1, date::date) = $2 and owner = $3 ORDER BY date DESC',
+      values: [timeopt, time, owner],
+    };
+    const result = await this._pool.query(query);
+    return result.rows;
+  }
+
   async getActById(id) {
     const query = {
       text: 'SELECT * FROM activities WHERE id = $1',

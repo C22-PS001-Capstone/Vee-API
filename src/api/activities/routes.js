@@ -51,6 +51,14 @@ const routes = (handler) => [
       auth: 'veeapp_jwt',
     },
   },
+  {
+    method: 'GET',
+    path: '/activities/{timeopt}/{time}',
+    handler: handler.getActsByTimeHandler,
+    options: {
+      auth: 'veeapp_jwt',
+    },
+  },
 ];
 
 module.exports = routes;

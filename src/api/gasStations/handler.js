@@ -42,7 +42,6 @@ class GasStationsHandler {
       const { lat = 0.0, lon = 0.0 } = request.query;
 
       if (lat == 0.0 && lon == 0.0) {
-        console.log('jalan nih');
         const response = h.response({
           status: 'success',
           message: 'Gas Stations terdekat berhasil didapatkan',

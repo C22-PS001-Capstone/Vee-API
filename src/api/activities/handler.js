@@ -15,6 +15,7 @@ class ActsHandler {
     this.putActByIdHandler = this.putActByIdHandler.bind(this);
     this.deleteActByIdHandler = this.deleteActByIdHandler.bind(this);
     this.postForecastHandler = this.postForecastHandler.bind(this);
+    this.getActsByTimeHandler = this.getActsByTimeHandler.bind(this);
   }
 
   async postActHandler(request, h) {
@@ -67,6 +68,31 @@ class ActsHandler {
     const { id: credentialId } = request.auth.credentials;
     const { size, page } = request.query;
     const acts = await this._service.getActs({ owner: credentialId, size, page });
+    const response = h.response({
+      status: 'success',
+      message: 'Berhasil mendapatkan activities',
+      data: {
+        activities: acts,
+      },
+    });
+    response.code(200);
+    response.message('Berhasil mendapatkan activities');
+    return response;
+  }
+
+  async getActsByTimeHandler(request, h) {
+    const { timeopt } = request.params;
+    let { time } = request.params;
+    const { id: credentialId } = request.auth.credentials;
+    const date = new Date();
+    if (time === 'now') {
+      if (timeopt === 'year') {
+        time = date.getYear() + 1900;
+      } else if (timeopt === 'month') {
+        time = date.getMonth() + 1;
+      }
+    }
+    const acts = await this._service.getActsByTime({ owner: credentialId, timeopt, time });
     const response = h.response({
       status: 'success',
       message: 'Berhasil mendapatkan activities',
