@@ -1,4 +1,7 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-continue */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-await-in-loop */
 /* eslint-disable max-len */
 /* eslint-disable no-mixed-operators */
 /* eslint-disable no-underscore-dangle */
@@ -9,24 +12,17 @@
 const fetch = require('node-fetch');
 const ClientError = require('../../exceptions/ClientError');
 
-function distance(lat1, lon1, lat2, lon2) {
+async function distance(lat1, lon1, lat2, lon2) {
   if ((lat1 === lat2) && (lon1 === lon2)) {
     return 0;
   }
 
-  const radlat1 = Math.PI * lat1 / 180;
-  const radlat2 = Math.PI * lat2 / 180;
-  const theta = lon1 - lon2;
-  const radtheta = Math.PI * theta / 180;
-  let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-  if (dist > 1) {
-    dist = 1;
-  }
-  dist = Math.acos(dist);
-  dist = dist * 180 / Math.PI;
-  dist = dist * 60 * 1.1515;
-  dist *= 1.609344;
-  return dist.toFixed(2);
+  const fetchResponse = await fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${lat1},${lon1}&destinations=${lat2},${lon2}&key=${process.env.MAPS_API_KEY}`);
+  const jsonResponse = await fetchResponse.json();
+
+  const jarak = jsonResponse.rows[0].elements[0].distance.value;
+
+  return jarak / 1000;
 }
 
 class GasStationsHandler {
@@ -60,13 +56,13 @@ class GasStationsHandler {
         const fetchResponse = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=10000&type=gas_station&key=${process.env.MAPS_API_KEY}`);
         const jsonResponse = await fetchResponse.json();
 
-        jsonResponse.results.forEach(async (gs) => {
+        for (const gs of jsonResponse.results) {
           let vendor = '';
           let open;
           try {
             open = gs.opening_hours.open_now;
           } catch (e) {
-            return;
+            continue;
           }
 
           if (open !== undefined) {
@@ -85,7 +81,7 @@ class GasStationsHandler {
                 id: gs.place_id,
                 name: gs.name,
                 vendor,
-                distance: distance(lat, lon, gs.geometry.location.lat, gs.geometry.location.lng),
+                distance: await distance(lat, lon, gs.geometry.location.lat, gs.geometry.location.lng),
                 lat: gs.geometry.location.lat,
                 lon: gs.geometry.location.lng,
                 operate: gs.opening_hours.open_now,
@@ -96,50 +92,50 @@ class GasStationsHandler {
               });
             }
           }
-        });
+        }
       } else if ((gasstationsdb[0].time_create + 86400000) <= Date.now()) {
         const fetchResponse = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=10000&type=gas_station&key=${process.env.MAPS_API_KEY}`);
         const jsonResponse = await fetchResponse.json();
 
-        jsonResponse.results.forEach(async (gs) => {
+        for (const gs of jsonResponse.results) {
           let open;
           try {
             open = gs.opening_hours.open_now;
           } catch (e) {
-            return;
+            continue;
           }
           if (open !== undefined) {
             await this._service.editGasStation({
               id: gs.place_id, operate: open, time_create: Date.now(),
             });
           }
-        });
+        }
 
         const gasstationsdbupdate = await this._service.getGasStations({ lat, lon });
 
-        gasstationsdbupdate.forEach((gs) => {
+        for (const gs of gasstationsdbupdate) {
           gasstations.push({
             id: gs.id,
             name: gs.name,
             vendor: gs.vendor,
-            distance: distance(lat, lon, gs.lat, gs.lon),
+            distance: await distance(lat, lon, gs.lat, gs.lon),
             lat: gs.lat,
             lon: gs.lon,
             operate: gs.operate,
           });
-        });
+        }
       } else {
-        gasstationsdb.forEach((gs) => {
+        for (const gs of gasstationsdb) {
           gasstations.push({
             id: gs.id,
             name: gs.name,
             vendor: gs.vendor,
-            distance: distance(lat, lon, gs.lat, gs.lon),
+            distance: await distance(lat, lon, gs.lat, gs.lon),
             lat: gs.lat,
             lon: gs.lon,
             operate: gs.operate,
           });
-        });
+        }
       }
 
       const response = h.response({
