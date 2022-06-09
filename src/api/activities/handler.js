@@ -241,7 +241,7 @@ class ActsHandler {
       result.forEach((x) => {
         data.push(x.price);
       });
-      const fetchResponse = await fetch('https://vee-ml-deployment-jbrk3bh3ia-et.a.run.app/v2/predict', {
+      const fetchResponse = await fetch('http://34.101.84.125/v2/predict', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
