@@ -1,6 +1,6 @@
 # Vee-API
 
-- [API Documentation](./dokumentasi/api%20doc/API%20Dokumentasi.pdf)
+- [API Documentation](https://documenter.getpostman.com/view/14640466/Uz5MFZqa#55535879-eec6-49a0-899d-de696afce2c0)
 - [Deployment with App Engine and Cloud Sql](./dokumentasi/deployment/app%20engine.md)
 - [Database ERD](./dokumentasi/erd/v1.0.0.png)
 
@@ -14,12 +14,3 @@
 - Monitoring : creating alert for sql and app engine cpu utilization
 - API Places : search nearby gas station
 - Cloud Run : deploy api for ml
-
-## Action need to do
-
-- add extension to postgre sql
-
-```
-create extension cube;
-create extension earthdistance;
-```

@@ -32,13 +32,13 @@ class ActsHandler {
 
       const response = h.response({
         status: 'success',
-        message: 'Catatan berhasil ditambahkan',
+        message: 'Activities berhasil ditambahkan',
         data: {
           actId,
         },
       });
       response.code(201);
-      response.message('Catatan berhasil ditambahkan');
+      response.message('Activities berhasil ditambahkan');
       return response;
     } catch (error) {
       if (error instanceof ClientError) {
