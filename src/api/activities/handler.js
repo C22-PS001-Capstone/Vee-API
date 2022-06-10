@@ -16,7 +16,7 @@ class ActsHandler {
     this.deleteActByIdHandler = this.deleteActByIdHandler.bind(this);
     this.postForecastHandler = this.postForecastHandler.bind(this);
     this.getActsByTimeHandler = this.getActsByTimeHandler.bind(this);
-    this.deleteActByUserIdHandler = this.deleteActByUserIdHandler.bind(this);
+    this.deleteActsByUserIdHandler = this.deleteActsByUserIdHandler.bind(this);
   }
 
   async postActHandler(request, h) {
@@ -233,23 +233,11 @@ class ActsHandler {
     }
   }
 
-  async deleteActByUserIdHandler(request, h) {
+  async deleteActsByUserIdHandler(request, h) {
     try {
-      const { userId } = request.params;
-      const { access } = request.query;
+      const { id } = request.auth.credentials;
 
-      if (access !== 'true') {
-        const response = h.response({
-          status: 'fail',
-          message: 'Activities gagal dihapus',
-          data: [],
-        });
-        response.code(400);
-        response.message('Activities gagal dihapus');
-        return response;
-      }
-
-      await this._service.deleteActByUserId(userId);
+      await this._service.deleteActByUserId(id);
 
       const response = h.response({
         status: 'success',

@@ -45,8 +45,11 @@ const routes = (handler) => [
   },
   {
     method: 'DELETE',
-    path: '/activities/user/{userId}',
-    handler: handler.deleteActByUserIdHandler,
+    path: '/activities/user',
+    handler: handler.deleteActsByUserIdHandler,
+    options: {
+      auth: 'veeapp_jwt',
+    },
   },
   {
     method: 'POST',
