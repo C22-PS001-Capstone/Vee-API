@@ -17,9 +17,11 @@ class ActivitiesService {
   }) {
     const id = `act-${nanoid(16)}`;
 
+    const liter2 = parseFloat(liter).toFixed(2);
+
     const query = {
       text: 'INSERT INTO activities VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id',
-      values: [id, date, lat, lon, km, price, parseFloat(liter).toFixed(2), owner],
+      values: [id, date, lat, lon, km, price, liter2, owner],
     };
 
     const result = await this._pool.query(query);
