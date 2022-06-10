@@ -94,6 +94,19 @@ class ActivitiesService {
     }
   }
 
+  async deleteActByUserId(userId) {
+    const query = {
+      text: 'DELETE FROM activities WHERE owner = $1 RETURNING id',
+      values: [userId],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rows.length) {
+      throw new NotFoundError('Activities gagal dihapus. Id user tidak ditemukan');
+    }
+  }
+
   async verifyActOwner(id, owner) {
     const query = {
       text: 'SELECT * FROM activities WHERE id = $1',

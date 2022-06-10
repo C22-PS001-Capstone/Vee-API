@@ -16,6 +16,7 @@ class ActsHandler {
     this.deleteActByIdHandler = this.deleteActByIdHandler.bind(this);
     this.postForecastHandler = this.postForecastHandler.bind(this);
     this.getActsByTimeHandler = this.getActsByTimeHandler.bind(this);
+    this.deleteActByUserIdHandler = this.deleteActByUserIdHandler.bind(this);
   }
 
   async postActHandler(request, h) {
@@ -199,6 +200,56 @@ class ActsHandler {
       const { id: credentialId } = request.auth.credentials;
       await this._service.verifyActOwner(id, credentialId);
       await this._service.deleteActById(id);
+
+      const response = h.response({
+        status: 'success',
+        message: 'Activities berhasil dihapus',
+        data: [],
+      });
+      response.code(200);
+      response.message('Activities berhasil dihapus');
+      return response;
+    } catch (error) {
+      if (error instanceof ClientError) {
+        const response = h.response({
+          status: 'fail',
+          message: error.message,
+          data: [],
+        });
+        response.code(error.statusCode);
+        response.message(error.message);
+        return response;
+      }
+      // Server ERROR!
+      const response = h.response({
+        status: 'error',
+        message: 'Maaf, terjadi kegagalan pada server kami.',
+        daata: [],
+      });
+      response.code(500);
+      response.message('Maaf, terjadi kegagalan pada server kami.');
+      console.error(error);
+      return response;
+    }
+  }
+
+  async deleteActByUserIdHandler(request, h) {
+    try {
+      const { userId } = request.params;
+      const { access } = request.query;
+
+      if (access !== 'true') {
+        const response = h.response({
+          status: 'fail',
+          message: 'Activities gagal dihapus',
+          data: [],
+        });
+        response.code(400);
+        response.message('Activities gagal dihapus');
+        return response;
+      }
+
+      await this._service.deleteActByUserId(userId);
 
       const response = h.response({
         status: 'success',

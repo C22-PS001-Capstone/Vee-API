@@ -44,6 +44,11 @@ const routes = (handler) => [
     },
   },
   {
+    method: 'DELETE',
+    path: '/activities/user/{userId}',
+    handler: handler.deleteActByUserIdHandler,
+  },
+  {
     method: 'POST',
     path: '/forecast',
     handler: handler.postForecastHandler,

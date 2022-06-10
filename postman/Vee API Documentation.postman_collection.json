@@ -1,0 +1,658 @@
+{
+	"info": {
+		"_postman_id": "8f83ac43-8658-4788-b5d7-e998eab39e34",
+		"name": "Vee API Documentation",
+		"description": "Backend API for Vee",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14640466"
+	},
+	"item": [
+		{
+			"name": "activities",
+			"item": [
+				{
+					"name": "Add Activity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItcThpVTFxckV5LTFGT29nMyIsImlhdCI6MTY1NDgxMTU1Mn0.uQJuZQXy1FoQ1ek8T1SJ8iKEjtOS5ds_aSv-gdtIw_0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": 111116,\r\n    \"lat\": 1.1331,\r\n    \"lon\": 2.32,\r\n    \"km\": 433333348,\r\n    \"price\": 13400,\r\n    \"liter\": 55.5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://vee-project-351306.et.r.appspot.com/activities",
+							"protocol": "https",
+							"host": [
+								"vee-project-351306",
+								"et",
+								"r",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting pagination activities",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItcThpVTFxckV5LTFGT29nMyIsImlhdCI6MTY1NDgxMTU1Mn0.uQJuZQXy1FoQ1ek8T1SJ8iKEjtOS5ds_aSv-gdtIw_0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://vee-project-351306.et.r.appspot.com/activities?size=1&page=2",
+							"protocol": "https",
+							"host": [
+								"vee-project-351306",
+								"et",
+								"r",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"activities"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "1"
+								},
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting Detail Activity by Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItcThpVTFxckV5LTFGT29nMyIsImlhdCI6MTY1NDgxMjU5Mn0.ogeHulJBq57DFgEhcm0oNQit0sinQpYGqAOpZNwG5pg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://vee-project-351306.et.r.appspot.com/activities/act-ityc8-pfS4RS6z9S",
+							"protocol": "https",
+							"host": [
+								"vee-project-351306",
+								"et",
+								"r",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"activities",
+								"act-ityc8-pfS4RS6z9S"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit activities",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItcThpVTFxckV5LTFGT29nMyIsImlhdCI6MTY1NDgxMTU1Mn0.uQJuZQXy1FoQ1ek8T1SJ8iKEjtOS5ds_aSv-gdtIw_0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": 11111111,\r\n    \"lat\": 1.1331,\r\n    \"lon\": 2.32,\r\n    \"km\": 433333348,\r\n    \"price\": 13400,\r\n    \"liter\": 55555\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://vee-project-351306.et.r.appspot.com/activities/act-jIaGv8zY-EkawjEt",
+							"protocol": "https",
+							"host": [
+								"vee-project-351306",
+								"et",
+								"r",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"activities",
+								"act-jIaGv8zY-EkawjEt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hapus aktivitas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItcThpVTFxckV5LTFGT29nMyIsImlhdCI6MTY1NDgxMjU5Mn0.ogeHulJBq57DFgEhcm0oNQit0sinQpYGqAOpZNwG5pg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://vee-project-351306.et.r.appspot.com/activities/act-jIaGv8zY-EkawjEt",
+							"protocol": "https",
+							"host": [
+								"vee-project-351306",
+								"et",
+								"r",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"activities",
+								"act-jIaGv8zY-EkawjEt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forecast",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItcThpVTFxckV5LTFGT29nMyIsImlhdCI6MTY1NDgxMjU5Mn0.ogeHulJBq57DFgEhcm0oNQit0sinQpYGqAOpZNwG5pg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://vee-project-351306.et.r.appspot.com/forecast",
+							"protocol": "https",
+							"host": [
+								"vee-project-351306",
+								"et",
+								"r",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"forecast"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activities by month or year",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItcThpVTFxckV5LTFGT29nMyIsImlhdCI6MTY1NDgxMjU5Mn0.ogeHulJBq57DFgEhcm0oNQit0sinQpYGqAOpZNwG5pg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://vee-project-351306.et.r.appspot.com/activities/year/now",
+							"protocol": "https",
+							"host": [
+								"vee-project-351306",
+								"et",
+								"r",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"activities",
+								"year",
+								"now"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "authentications",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"evan@gmail.com\",\r\n    \"password\": \"contoh\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://vee-project-351306.et.r.appspot.com/authentications",
+							"protocol": "https",
+							"host": [
+								"vee-project-351306",
+								"et",
+								"r",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"authentications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "google auth",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjM4ZjM4ODM0NjhmYzY1OWFiYjQ0NzVmMzYzMTNkMjI1ODVjMmQ3Y2EiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxMDA1MjIyNjA3ODYzLWc4YjVtbnFvc2ZxZjBsM3JuM2hhcHZwdW9yZDM3Z2g3LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMTAwNTIyMjYwNzg2My0waTdrdTgwaWlncmQyN2Z0Mjc4aHVjMjg4YmViMjlubC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjExMDc5NTc0NjQ0NDI1MTU0OTgxMyIsImVtYWlsIjoiY291cnNlQHJlemFqdWxpYW5kcmkubXkuaWQiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IlJlemEgQ291cnNlIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FBVFhBSnhscXM0eDVrUW1mUVJORW9WR1p1bEZSWm5QMXFkOExPemQzMUdyPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IlJlemEiLCJmYW1pbHlfbmFtZSI6IkNvdXJzZSIsImxvY2FsZSI6ImVuIiwiaWF0IjoxNjUzOTE3NTgwLCJleHAiOjE2NTM5MjExODB9.IBjxsUeuhsx0NCqDJwWtsd1h3tfysahISOE7eVgaqOxb40JGRcusKGpA6jwjo4Xp2XPdInfjIalddkuSAuF2B-55wYurhCTpUXa0jBV95mjfdIURAuERK9Jk_FW2A4klSPg2sPAJBTqaqo6Ng_ASaexeGGqmpTpkwYPABHJA-Cy8cCs59UkJFB9NmHrLcBkzQ7PdHko6ZVsGCkwoipWnRK5GaMcA_fAfWq2jUgnkNAwHlxvK6C3U_pK-sDQW7uSI8a6uB42jtJMrqtBKIu03kKkViQaPdx4drTwHB1C1VVz6mDYgD6FSmX_1On082fSjfLHEMId_jnWXml9esRYLSg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://vee-project-351306.et.r.appspot.com/authentications/google",
+							"protocol": "https",
+							"host": [
+								"vee-project-351306",
+								"et",
+								"r",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"authentications",
+								"google"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItcThpVTFxckV5LTFGT29nMyIsImlhdCI6MTY1NDgxMTQwN30.ntHh3DNL5CBZ3V2Kpfnxsyl6yIGgfgONIu-7ZnwZnNY\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://vee-project-351306.et.r.appspot.com/authentications",
+							"protocol": "https",
+							"host": [
+								"vee-project-351306",
+								"et",
+								"r",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"authentications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://vee-project-351306.et.r.appspot.com/authentications?refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItcThpVTFxckV5LTFGT29nMyIsImlhdCI6MTY1NDgxMTQwN30.ntHh3DNL5CBZ3V2Kpfnxsyl6yIGgfgONIu-7ZnwZnNY",
+							"protocol": "https",
+							"host": [
+								"vee-project-351306",
+								"et",
+								"r",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"authentications"
+							],
+							"query": [
+								{
+									"key": "refreshToken",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItcThpVTFxckV5LTFGT29nMyIsImlhdCI6MTY1NDgxMTQwN30.ntHh3DNL5CBZ3V2Kpfnxsyl6yIGgfgONIu-7ZnwZnNY"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "gasstations",
+			"item": [
+				{
+					"name": "Ger nearest gas station",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItbmJxZWpjY0RZUG9BTDhzUCIsImlhdCI6MTY1NDgxMTExOH0.Ilz0ztsxk37oZzdlL7XeU2bKH6xLLbKDAnQvwOXLykw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://vee-project-351306.et.r.appspot.com/gasstations?lat=-7.790420&lon=110.3800603",
+							"protocol": "https",
+							"host": [
+								"vee-project-351306",
+								"et",
+								"r",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"gasstations"
+							],
+							"query": [
+								{
+									"key": "lat",
+									"value": "-7.790420"
+								},
+								{
+									"key": "lon",
+									"value": "110.3800603"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Getting User by Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItcThpVTFxckV5LTFGT29nMyIsImlhdCI6MTY1NDgxMTQwN30.YdBMLRLZsyVbJfAhsXpIyS1BmjlueFCSReJIsiJR7iM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://vee-project-351306.et.r.appspot.com/users",
+							"protocol": "https",
+							"host": [
+								"vee-project-351306",
+								"et",
+								"r",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adding User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set('userId', data.userId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"evan\",\r\n    \"lastname\": \"R\",\r\n    \"email\": \"evan@gmail.com\",\r\n    \"password\": \"ryan\",\r\n    \"passwordConfirm\": \"ryan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://vee-project-351306.et.r.appspot.com/users",
+							"protocol": "https",
+							"host": [
+								"vee-project-351306",
+								"et",
+								"r",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Fistname Lastname",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItcThpVTFxckV5LTFGT29nMyIsImlhdCI6MTY1NDgxMTQwN30.YdBMLRLZsyVbJfAhsXpIyS1BmjlueFCSReJIsiJR7iM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"Ryan\",\r\n    \"lastname\": \"Bakhri\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://vee-project-351306.et.r.appspot.com/users",
+							"protocol": "https",
+							"host": [
+								"vee-project-351306",
+								"et",
+								"r",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItcThpVTFxckV5LTFGT29nMyIsImlhdCI6MTY1NDgxMTQwN30.YdBMLRLZsyVbJfAhsXpIyS1BmjlueFCSReJIsiJR7iM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"passwordCurrent\": \"ryan\",\r\n    \"password\": \"contoh\",\r\n    \"passwordConfirm\": \"contoh\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://vee-project-351306.et.r.appspot.com/passwords",
+							"protocol": "https",
+							"host": [
+								"vee-project-351306",
+								"et",
+								"r",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"passwords"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add user google login password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCIhttps://vee-project-351306.et.r.appspot.com/6IkpXVCJ9.eyJpZCI6InVzZXItcThpVTFxckV5LTFGT29nMyIsImlhdCI6MTY1NDgxMjU5Mn0.ogeHulJBq57DFgEhcm0oNQit0sinQpYGqAOpZNwG5pg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"tes1234\",\n    \"passwordConfirm\": \"tes1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://vee-project-351306.et.r.appspot.com/passwords/google",
+							"protocol": "https",
+							"host": [
+								"vee-project-351306",
+								"et",
+								"r",
+								"appspot",
+								"com"
+							],
+							"path": [
+								"passwords",
+								"google"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
