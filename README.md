@@ -32,7 +32,7 @@ We as Indonesian people usually still calculate the expense that comes from our 
 - Cloud Run : deploy api for ml
 - Compute Engine : deploy api for ml mode (more low latency)
 
-## Installation Instructions
+## Local Installation Instructions
 
 Fork and clone the forked repository:
 
@@ -59,3 +59,72 @@ npm run start
 ```
 
 API will run on [http://localhost:5000](http://localhost:5000)
+
+## GCP Deployment Instructions
+
+Fork and clone the forked repository in cloud shell, enable API and right permission.
+
+```shell
+git clone git://github.com/<your_fork>/Vee-API
+```
+
+Query for postgre:
+
+```
+create extension cube;
+create extension earthdistance;
+
+GRANT ALL PRIVILEGES ON DATABASE veeapp TO developer;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO developer;
+
+CREATE TABLE public.users (
+	id varchar(50) NOT NULL,
+	firstname text NOT NULL,
+	lastname text NULL,
+	email text NOT NULL,
+	"password" text NULL,
+	CONSTRAINT users_email_key UNIQUE (email),
+	CONSTRAINT users_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE public.authentications (
+	"token" text NOT NULL
+);
+
+CREATE TABLE public.activities (
+	id varchar(50) NOT NULL,
+	"date" date NOT NULL,
+	lat float8 NULL,
+	lon float8 NULL,
+	km int4 NOT NULL,
+	price int4 NOT NULL,
+	liter float4 NOT NULL,
+	"owner" varchar(50) NOT NULL,
+	CONSTRAINT activities_pkey PRIMARY KEY (id)
+);
+
+ALTER TABLE public.activities ADD CONSTRAINT "fk_activities.owner_users.id" FOREIGN KEY ("owner") REFERENCES public.users(id) ON DELETE CASCADE;
+
+CREATE TABLE public.gasstations (
+	id varchar(50) NOT NULL,
+	"name" text NOT NULL,
+	lat float8 NULL,
+	lon float8 NULL,
+	vendor text NOT NULL,
+	operate bool NOT NULL,
+	time_create int8 NOT NULL,
+	CONSTRAINT gasstations_pkey PRIMARY KEY (id)
+);
+```
+
+Move to project directory:
+
+```shell
+cd Vee-API
+```
+
+Deploy to appengine:
+
+```shell
+gcloud app deploy
+```
