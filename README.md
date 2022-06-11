@@ -52,8 +52,10 @@ Install all required packages:
 npm install
 ```
 
-Run the NodeJS API
+Run the NodeJS API:
 
 ```shell
 npm run start
 ```
+
+API will run on [http://localhost:5000](http://localhost:5000)
